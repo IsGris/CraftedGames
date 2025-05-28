@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
-      <loc>https://craftedgames.site/</loc>
-      <lastmod>2025-05-28</lastmod> <priority>1.0</priority>
+      <loc>https://craftedgames.site/ </loc>
+      <lastmod>2025-05-28</lastmod>
+      <priority>1.0</priority>
       <changefreq>monthly</changefreq>
    </url>
-   </urlset>
+   <url>
+      <loc>https://craftedgames.site/ru </loc>
+      <lastmod>2025-05-28</lastmod>
+      <priority>1.0</priority>
+      <changefreq>monthly</changefreq>
+   </url>
+</urlset>
