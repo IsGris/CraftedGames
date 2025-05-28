@@ -1,0 +1,540 @@
+/* Global Styles & Tailwind Base Resets (Simplified) */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --game-yellow: #FFCF33;
+    --game-dark: #1A1A1A;
+    --color-background: #f5f5f5;
+    --color-text: #1A1A1A;
+    --color-text-default-600: #525252; /* Approximating Tailwind's default 600 */
+    --color-text-default-700: #404040; /* Approximating Tailwind's default 700 */
+    --color-text-default-800: #262626; /* Approximating Tailwind's default 800 */
+    --color-primary-600: #EA580C; /* Example primary color for links */
+    --color-primary-800: #9A3412;
+    --font-sans: 'Satoshi', sans-serif;
+    --font-questrial: 'Questrial', sans-serif;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+.h-full { height: 100%; }
+.min-h-screen { min-height: 100vh; }
+.flex-grow { flex-grow: 1; }
+
+/* Scrollbar Hiding (from index.css) */
+.scrollbar-hidden {
+    -ms-overflow-style: none;  /* IE, Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none;             /* Chrome, Safari */
+}
+
+/* Wave Shapes (from index.css) */
+.wave-shape {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+.wave-bottom {
+    bottom: -1px;
+    transform: rotate(180deg);
+}
+.wave-top {
+    top: -1px;
+}
+.wave-svg {
+    width: 100%;
+    height: 99px;
+    fill: var(--color-background); /* Default fill, sections will override if needed */
+}
+.services-section .wave-svg,
+.contact-section .wave-svg {
+    fill: var(--color-background); /* f5f5f5 */
+}
+.services-section .wave-bottom .wave-svg, /* For services when it's rotated */
+.contact-section .wave-top .wave-svg { /* For contact section top wave, fill with prev section bg */
+    fill: var(--color-background); /* f5f5f5 */
+}
+
+
+/* Container */
+.container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem; /* px-6 */
+    padding-right: 1.5rem; /* px-6 */
+}
+@media (min-width: 640px) { /* sm */
+    .container { max-width: 640px; }
+}
+@media (min-width: 768px) { /* md */
+    .container { max-width: 768px; }
+}
+@media (min-width: 1024px) { /* lg */
+    .container { max-width: 1024px; }
+}
+@media (min-width: 1280px) { /* xl */
+    .container { max-width: 1280px; } /* max-w-7xl */
+}
+@media (min-width: 1536px) { /* 2xl */
+    .container { max-width: 1280px; } /* max-w-7xl is 1280px in default tailwind */
+}
+
+
+/* Section Titles */
+.section-title {
+    font-family: var(--font-questrial);
+    font-size: 2.5rem; /* text-4xl or similar, adjust as needed */
+    text-align: center;
+    margin-bottom: 4rem; /* mb-16 */
+}
+@media (min-width: 768px) {
+    .section-title { font-size: 3.75rem; /* text-6xl */ }
+}
+
+
+/* Buttons */
+.button {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background: none;
+    transition: 
+        transform 0.1s linear, 
+        box-shadow 0.3s linear; /* Увеличена продолжительность */
+    
+    /* Изначальная тень */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.button:hover {
+    transform: translate(2px, 2px) !important; /* Сдвиг при hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Меньшая тень при hover */
+}
+
+.button:active {
+    transform: translate(4px, 4px) !important; /* Сдвиг при active */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02); /* Ещё меньшая тень при active */
+}
+
+.button-warning {
+    background-color: var(--game-yellow);
+    color: var(--game-dark);
+}
+
+.button-warning:hover {
+    background-color: var(--game-yellow); /* Нет изменения фона при hover */
+}
+
+/* Header */
+.site-header {
+    padding-top: 1rem; /* py-4 */
+    padding-bottom: 1rem; /* py-4 */
+    font-weight: normal; /* font-normal */
+}
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-title {
+    font-family: var(--font-questrial);
+    font-size: 1.875rem; /* text-3xl */
+    line-height: 2.25rem;
+}
+.header-nav { /* hidden md:flex gap-6 */
+    display: none;
+}
+@media (min-width: 768px) {
+    .header-nav {
+        display: flex;
+        gap: 1.5rem; /* gap-6 */
+    }
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex; /* Ensure it takes up height */
+    align-items: center; /* For vertical centering of the container */
+    padding-top: 0; /* Explicitly setting based on style={{ paddingTop: 0}} */
+    padding-bottom: 0;
+}
+.hero-container {
+    display: flex;
+    flex-direction: column; /* Default for smaller screens based on [@media(max-width:1540px)]:flex-col */
+    align-items: center; /* Default for smaller screens */
+    justify-content: center; /* Default for smaller screens */
+    gap: 50px; /* Default for smaller screens */
+    padding-top: 2rem; /* Added some padding for very small screens */
+    padding-bottom: 2rem; /* Added some padding for very small screens */
+}
+.hero-content {
+    width: 100%;
+    margin-bottom: 2rem; /* mb-8 */
+}
+.hero-headline {
+    font-family: var(--font-questrial);
+    font-size: 3rem; /* Adjusted from text-7xl for better fit, was too large */
+    line-height: 1.1;
+    margin-bottom: 1rem; /* mb-4 */
+}
+.hero-tagline {
+    color: var(--color-text-default-600);
+    margin-bottom: 2rem; /* mb-8 */
+    font-size: 1.25rem; /* text-xl or text-2xl */
+    width: 100%;
+}
+.hero-image-grid {
+    width: 100%;
+    display: flex; /* For horizontal scroll on small screens */
+    gap: 1rem; /* gap-4 */
+    overflow-x: auto; /* overflow-x-auto */
+    padding-bottom: 50px; /* pb-[50px] */
+    /* scrollbar-hide is handled by .scrollbar-hidden */
+}
+.hero-image-wrapper {
+    flex: 0 0 auto; /* Prevent shrinking, allow auto width for content */
+    width: 200px; /* Example fixed width for scrolling items, adjust as needed */
+    aspect-ratio: 4 / 3;
+    border-radius: 0.5rem; /* rounded-lg */
+    overflow: hidden;
+}
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Responsive Hero Section (from [@media(max-width:1540px)] and md:) */
+@media (min-width: 768px) { /* md from original code for content/image split */
+    .hero-content {
+        width: 48%;
+        margin-bottom: 0;
+    }
+    .hero-image-grid {
+        width: 48%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* md:grid-cols-2 */
+        gap: 1rem; /* md:gap-4 */
+        overflow-x: visible; /* Reset overflow for grid */
+        padding-bottom: 0; /* Reset padding */
+    }
+    .hero-image-wrapper {
+        width: 100%; /* Grid items take full width of their cell */
+    }
+}
+
+@media (min-width: 1540px) { /* This is the breakpoint where flex-row applies */
+    .hero-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0; /* Reset gap if not desired for this layout */
+    }
+}
+
+
+/* Services Section */
+.services-section {
+    position: relative;
+    background-color: var(--game-yellow);
+    padding-top: 6rem; /* py-24 */
+    padding-bottom: 6rem; /* py-24 */
+}
+.services-section .wave-svg { /* Override wave fill for this section's top/bottom */
+    fill: var(--color-background); /* #f5f5f5 (previous/next section bg) */
+}
+.services-container {
+    max-width: 1280px; /* max-w-7xl */
+    padding-top: 100px; /* py-[100px] */
+    padding-bottom: 100px; /* py-[100px] */
+}
+.services-title {
+    font-size: 2.5rem; /* Adjusted from text-6xl for consistency */
+    margin-bottom: 4rem; /* mb-16 */
+}
+@media(min-width: 768px) {
+    .services-title { font-size: 3.75rem; }
+}
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* grid-cols-1 */
+    gap: 1.5rem; /* gap-6 */
+}
+@media (min-width: 768px) { /* md:grid-cols-2 */
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) { /* lg:grid-cols-3 */
+    .services-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.service-card {
+    background-color: rgba(255, 207, 51, 0.9); /* bg-game-yellow/90 */
+    border: none; /* border-none */
+    height: 100%; /* h-full */
+    border-radius: 0.5rem; /* Standard card rounding */
+    box-shadow: 0 4px 6px 1px rgba(0,0,0,0.3), 0 2px 4px 2px rgba(0,0,0,0.3); /* Basic shadow */
+}
+.service-card-body {
+    padding: 1.5rem; /* p-6 */
+}
+.service-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem; /* mb-4 */
+}
+.service-icon {
+    font-size: 1.875rem; /* text-3xl */
+    margin-right: 1rem; /* mr-4 */
+    color: var(--game-dark);
+}
+.service-card-title {
+    font-family: var(--font-questrial);
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 600; /* font-semibold */
+    color: var(--game-dark);
+}
+.service-card-description {
+    font-family: var(--font-questrial);
+    font-size: 1.125rem; /* text-xl (original was text-xl, maybe meant lg or base?) */
+    color: var(--color-text-default-700);
+}
+
+/* Portfolio Section */
+.portfolio-section {
+    padding-top: 6rem; /* py-24 */
+    padding-bottom: 6rem; /* py-24 */
+}
+.portfolio-title {
+    font-size: 2.5rem; /* text-6xl */
+    margin-bottom: 4rem; /* mb-16 */
+}
+@media(min-width: 768px) {
+    .portfolio-title { font-size: 3.75rem; }
+}
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* grid-cols-1 */
+    gap: 2rem; /* gap-8 */
+}
+@media (min-width: 768px) { /* md:grid-cols-2 */
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) { /* lg:grid-cols-3 */
+    .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.portfolio-item {
+    overflow: hidden; /* overflow-hidden */
+    border: none; /* border-none */
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); /* shadow-md */
+    border-radius: 0.5rem; /* Standard card rounding */
+    background-color: #fff;
+}
+.portfolio-item-image-container {
+    height: 15rem; /* h-60 */
+    overflow: hidden;
+}
+.portfolio-item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* object-cover */
+    transition: transform 0.5s ease; /* transition-transform duration-500 */
+}
+.portfolio-item:hover .portfolio-item-image {
+    transform: scale(1.05); /* hover:scale-105 */
+}
+.portfolio-item-body {
+    padding: 1.5rem; /* Based on CardBody from other sections */
+}
+.portfolio-item-title {
+    font-family: var(--font-questrial);
+    font-size: 1.875rem; /* text-3xl */
+    font-weight: 600; /* font-semibold */
+    margin-bottom: 0.5rem; /* mb-2 */
+    color: var(--game-dark);
+}
+.portfolio-item-description {
+    font-family: var(--font-questrial);
+    font-size: 1.125rem; /* text-xl */
+    color: var(--color-text-default-600);
+}
+
+/* Contact Section */
+.contact-section {
+    position: relative;
+    background-color: var(--game-yellow);
+    padding-top: 6rem;    /* pt-24 */
+    padding-bottom: 6rem; /* pb-24 */
+}
+.contact-section .wave-svg {
+    fill: var(--color-background); /* #f5f5f5 */
+}
+.contact-container {
+    margin-top: 50px; /* mt-[50px] */
+    max-width: 1280px; /* max-w-7xl */
+    display: grid;
+    grid-template-columns: 1fr; /* grid-cols-1 */
+    gap: 3rem; /* gap-12 */
+}
+@media (min-width: 768px) { /* md:grid-cols-2 */
+    .contact-container { grid-template-columns: repeat(2, 1fr); }
+}
+.contact-headline {
+    font-size: 1.875rem; /* text-3xl */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 1rem; /* mb-4 */
+    color: var(--game-dark);
+}
+.contact-tagline {
+    margin-bottom: 1.5rem; /* mb-6 */
+    color: var(--color-text-default-800);
+}
+.contact-email-card {
+    background-color: rgba(255, 255, 255, 0.8); /* bg-white/80 */
+    backdrop-filter: blur(4px); /* backdrop-blur-sm */
+    padding: 1.5rem; /* p-6 */
+    border-radius: 0.75rem; /* rounded-xl */
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); /* shadow-md */
+}
+.contact-email-title {
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 600; /* font-semibold */
+    margin-bottom: 0.5rem; /* mb-2 */
+    color: var(--game-dark);
+}
+.contact-email-description {
+    color: var(--color-text-default-800);
+    margin-bottom: 1rem; /* mb-4 */
+}
+.contact-email-link {
+    color: var(--color-primary-600);
+    text-decoration: underline;
+}
+.contact-email-link:hover {
+    color: var(--color-primary-800);
+}
+
+/* Footer */
+.site-footer-main {
+    background-color: var(--game-dark);
+    color: white;
+    padding-top: 2rem; /* py-8 */
+    padding-bottom: 2rem; /* py-8 */
+}
+.footer-container {
+    /* max-w-7xl already handled by .container */
+}
+.footer-content {
+    display: flex;
+    flex-direction: column; /* Default */
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+@media (min-width: 768px) { /* md:flex-row */
+    .footer-content {
+        flex-direction: row;
+        text-align: left;
+    }
+}
+.footer-brand {
+    margin-bottom: 1rem; /* mb-4 md:mb-0 */
+}
+@media (min-width: 768px) {
+    .footer-brand { margin-bottom: 0; }
+}
+.footer-brand-title {
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 700; /* font-bold */
+}
+.footer-brand-tagline {
+    font-size: 0.875rem; /* text-sm */
+    color: #a0aec0; /* text-gray-400 */
+}
+.footer-socials {
+    display: flex;
+    gap: 1rem; /* space-x-4 */
+}
+.social-link {
+    color: #a0aec0; /* text-gray-400 */
+    transition: color 0.3s ease; /* transition-colors */
+}
+.social-link:hover {
+    color: white; /* hover:text-white */
+}
+.social-link svg { /* text-xl */
+    width: 1.25rem;
+    height: 1.25rem;
+}
+.footer-copyright {
+    margin-top: 2rem; /* mt-8 */
+    padding-top: 1rem; /* pt-4 */
+    border-top: 1px solid #4a5568; /* border-gray-800 (example) */
+    text-align: center;
+    font-size: 0.875rem; /* text-sm */
+    color: #718096; /* text-gray-500 */
+}
+
+
+/* Scroll Reveal Animation */
+/* Scroll Reveal Animation */
+.js-scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    /* Use the transition shorthand to define transitions for opacity and transform */
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.3s linear;
+    /* The JavaScript will still add transition-delay via inline styles, which is fine */
+}
+.js-scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4); /* Цвет волны, обычно белый с прозрачностью */
+    width: 100px;  /* Начальные размеры, можно настроить */
+    height: 100px; /* Начальные размеры, можно настроить */
+    margin-top: -50px; /* Половина высоты для центрирования */
+    margin-left: -50px;/* Половина ширины для центрирования */
+    animation: ripple-animation 0.7s forwards; /* forwards сохранит конечное состояние */
+    opacity: 1;
+    transform: scale(0); /* Начинаем с нулевого размера */
+    pointer-events: none; /* Чтобы круг не мешал повторным кликам */
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(3); /* Увеличиваем волну */
+        opacity: 0;          /* И делаем ее прозрачной */
+    }
+}
